@@ -1,0 +1,27 @@
+{
+  "name": "front-end-fisheye",
+  "version": "1.0.0",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/style.scss:public/css/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ambre972ppm/AmbreGONDRY_6_26112021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ambre972ppm/AmbreGONDRY_6_26112021/issues"
+  },
+  "homepage": "https://github.com/Ambre972ppm/AmbreGONDRY_6_26112021#readme",
+  "devDependencies": {
+    "eslint": "^8.15.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.0-beta1"
+  }
+}

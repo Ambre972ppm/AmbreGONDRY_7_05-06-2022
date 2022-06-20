@@ -1,0 +1,25 @@
+.search-bar {
+  background-color: #E7E7E7;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.sort-nav-menus button {
+  width: 10rem;
+  font-weight: 500;
+  color: white;
+}
+
+.ingredients-menu {
+  background-color: #3282F7;
+}
+
+.devices-menu {
+  background-color: #68D9A4;
+}
+
+.utensils-menu {
+  background-color: #ED6454;
+}
+
+/*# sourceMappingURL=style.css.map */
