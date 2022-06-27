@@ -7,24 +7,24 @@ const recipes = [
             {
                 "ingredient" : "Lait de coco",
                 "quantity" : 400,
-                "unit" : "ml"
+                "unit" : "ml",
             },
             {
                 "ingredient" : "Jus de citron",
-                "quantity" : 2
+                "quantity" : 2,
             },
             {
                 "ingredient" : "Crème de coco",
                 "quantity" : 2,
-                "unit" : "cuillères à soupe"
+                "unit" : "cuillères à soupe",
             },
             {
                 "ingredient" : "Sucre",
                 "quantite" : 30,
-                "unit" : "grammes"
+                "unit" : "grammes",
             },
             {
-                "ingredient": "Glaçons"
+                "ingredient": "Glaçons",
             }
         ],
         "time": 10,
@@ -44,7 +44,7 @@ const recipes = [
             },
             {
                 "ingredient" : "Concombre",
-                "quantity" : 1
+                "quantity" : 1,
             },
             {
                 "ingredient" : "Tomate",
@@ -1724,3 +1724,5 @@ const recipes = [
         "ustensils":["rouleau à patisserie","fouet"]
     }
 ]
+
+export default recipes
