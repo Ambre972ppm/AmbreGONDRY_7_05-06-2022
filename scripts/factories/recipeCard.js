@@ -31,7 +31,6 @@ function cookingListFactory(recipe) {
         recipeContent.appendChild(recipeIngredients);
 
         recipe.ingredients.forEach((ingredientline) => {
-            console.log(ingredientline);
             const recipeIngredient = document.createElement('li');
             recipeIngredients.appendChild(recipeIngredient);
             const ingredient = ingredientline.ingredient;

@@ -1,3 +1,7 @@
+.header__logo {
+    max-width: 100%;
+}
+
 .search-bar {
     background-color: #E7E7E7;
     border-radius: 5px;
@@ -26,6 +30,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
+    @media (max-width : 1023px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width : 767px) {
+        grid-template-columns: 1fr;
+    }
     .recipe-card{
         height: 23rem;
         border-radius: 5px;
@@ -54,7 +64,7 @@
                 margin-bottom: 0;
                 list-style-type: none;
                 font-weight: 700;
-                font-size: 10px;
+                font-size: 12px;
                 width: 50%;
                 .ingredient-quantity {
                     font-weight: 400;
