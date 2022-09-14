@@ -1,7 +1,7 @@
-function cookingListFactory(recipe) {
+function recipeFactory(recipe) {
     const {name, ingredients, time, description} = recipe;
 
-    function generateCookingList() {
+    function generateRecipeCard() {
 
         const recipeCard = document.createElement('aside');
         recipeCard.setAttribute('class', "recipe-card");
@@ -11,11 +11,11 @@ function cookingListFactory(recipe) {
         recipeCard.appendChild(recipePicture);
 
         const recipeHeader = document.createElement('div');
-        recipeHeader.setAttribute('class', "recipe-header d-flex justify-content-between align-items-center p-3")
+        recipeHeader.setAttribute('class', "recipe-header d-flex justify-content-between px-3 pt-3")
         recipeCard.appendChild(recipeHeader); 
 
         const recipeContent = document.createElement('div');
-        recipeContent.setAttribute('class', "recipe-content d-flex justify-content-between align-items-center px-1")
+        recipeContent.setAttribute('class', "recipe-content d-flex justify-content-between flex-row p-1")
         recipeCard.appendChild(recipeContent); 
 
         const recipeName = document.createElement('h2');
@@ -23,11 +23,12 @@ function cookingListFactory(recipe) {
         recipeHeader.appendChild(recipeName);
 
         const recipeTime = document.createElement('span');
+        recipeTime.setAttribute('class', "recipe-time")
         recipeTime.innerHTML = `<i class="far fa-clock"></i> ${time} min`;
         recipeHeader.appendChild(recipeTime);
 
         const recipeIngredients = document.createElement('ul');
-        recipeIngredients.setAttribute('class', "recipe-ingredients");
+        recipeIngredients.setAttribute('class', "recipe-ingredients px-2 w-50");
         recipeContent.appendChild(recipeIngredients);
 
         recipe.ingredients.forEach((ingredientline) => {
@@ -50,6 +51,6 @@ function cookingListFactory(recipe) {
         return (recipeCard);
     }
     return {
-        name, ingredients, time, description, generateCookingList
+        name, ingredients, time, description, generateRecipeCard
     }
 }

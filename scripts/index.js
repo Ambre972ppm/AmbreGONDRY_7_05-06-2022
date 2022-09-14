@@ -4,7 +4,7 @@ function displayRecipes(recipes) { // fonction qui affiche le resultat de recher
   const recipesListSection = document.getElementById("recipes-list");
   recipesListSection.innerHTML = "";
 
-  recipes.forEach( (recipe) => {
+  recipes.forEach((recipe) => {
     const recipeModel = recipeFactory(recipe);
     const recipeCard = recipeModel.generateRecipeCard();
     recipesListSection.appendChild(recipeCard);
@@ -187,7 +187,7 @@ function searchRecipes(recipes) {
             searchingByTag = true;
             console.log(searchingByTag);
             displayRecipeByTags(tag);
-        };
+        });
       } else {
         recipesListSection.innerHTML = "";
         tagsTable = [];
