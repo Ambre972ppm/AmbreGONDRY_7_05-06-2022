@@ -38,14 +38,14 @@ function displayIngredients(recipes) { //fonction qui affiche la liste des ingre
   const ingredientsList = document.querySelector('.ingredients-list');
   ingredientsList.innerHTML = ``;
 
-  for(let recipe of recipes) {
-      for(let ingredient of recipe.ingredients) {
+  recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
           ingredients.push(ingredient.ingredient.toLowerCase());
-      };
-  }
+      });
+  });
   const filteredIngredients = Array.from(new Set(ingredients)); // filtre les doublons du tableau
   
-  for(let ingredient of filteredIngredients) {
+  filteredIngredients.forEach((ingredient) => {
     const ingredientLine = document.createElement('li');
     ingredientsList.appendChild(ingredientLine);
 
@@ -54,7 +54,7 @@ function displayIngredients(recipes) { //fonction qui affiche la liste des ingre
     ingredientLink.setAttribute('class', "dropdown-item");
     ingredientLink.setAttribute('href', "#");
     ingredientLine.appendChild(ingredientLink);
-  }
+  });
 }
 
 function displayAppliances(recipes) { //fonction qui affiche la liste des appareils
@@ -63,12 +63,12 @@ function displayAppliances(recipes) { //fonction qui affiche la liste des appare
   const appliancesList = document.querySelector('.appliances-list');
   appliancesList.innerHTML = ``;
 
-  for(let recipe of recipes) {
+  recipes.forEach((recipe) => {
     appliances.push(recipe.appliance.toLowerCase())
-  };
+  });
   const filteredAppliance = Array.from(new Set(appliances)); // filtre les doublons du tableau
 
-  for(let appliance of filteredAppliance) {
+  filteredAppliance.forEach((appliance) =>{
     const applianceLine = document.createElement('li');
     appliancesList.appendChild(applianceLine);
 
@@ -77,7 +77,7 @@ function displayAppliances(recipes) { //fonction qui affiche la liste des appare
     applianceLink.setAttribute('class', "dropdown-item");
     applianceLink.setAttribute('href', "#");
     applianceLine.appendChild(applianceLink);
-  }
+  });
 }
 
 function displayUstensils(recipes) { //fonction qui affiche la liste des ustensiles
@@ -86,14 +86,14 @@ function displayUstensils(recipes) { //fonction qui affiche la liste des ustensi
   const ustensilsList = document.querySelector('.ustensils-list');
   ustensilsList.innerHTML = ``;
 
-  for(let recipe of recipes) {
-    for(let ustensil of recipe.ustensils) {
+  recipes.forEach((recipe) => {
+    recipe.ustensils.forEach((ustensil) => {
       ustensils.push(ustensil.toLowerCase());
-    };
-  }
+    });
+  });
   const filteredUstensiles = Array.from(new Set(ustensils)); // filtre les doublons du tableau
 
-  for(let ustensil of filteredUstensiles) {
+  filteredUstensiles.forEach((ustensil) => {
     const ustensilLine = document.createElement('li');
     ustensilsList.appendChild(ustensilLine);
 
@@ -102,7 +102,7 @@ function displayUstensils(recipes) { //fonction qui affiche la liste des ustensi
     ustensilLink.setAttribute('class', "dropdown-item");
     ustensilLink.setAttribute('href', "#");
     ustensilLine.appendChild(ustensilLink);
-  }
+  });
 }
 
 function searchRecipes(recipes) {
@@ -191,7 +191,6 @@ function searchRecipes(recipes) {
       } else {
         recipesListSection.innerHTML = "";
         tagsTable = [];
-        tagsSelectedTable = [];
         searchingByTag = false;
         console.log(searchingByTag);
         displayRecipes(recipes);
@@ -200,7 +199,7 @@ function searchRecipes(recipes) {
         displayUstensils(recipes); 
       }
       
-      console.log(tagsSelectedTable);
+      console.log(tagsTable);
       
     })
   }
@@ -228,7 +227,7 @@ function searchRecipes(recipes) {
 
   }
     
-    filterMenus.forEach((dropdowns) => {
+    filterMenus.forEach((dropdown) => {
     dropdown.addEventListener('keyup', function (e){
       let newIngredientList = [];
       let newApplianceList = [];
@@ -302,7 +301,7 @@ function searchRecipes(recipes) {
 
     if (searchValue.length > 2) {
       recipesListSection.innerHTML = "";
-        displayResult(results);
+        displayRecipes(results);
         displayRecipes(results);
         displayIngredients(results);
         displayAppliances(results);
