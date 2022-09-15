@@ -191,7 +191,6 @@ function searchRecipes(recipes) {
       } else {
         recipesListSection.innerHTML = "";
         tagsTable = [];
-        tagsSelectedTable = [];
         searchingByTag = false;
         console.log(searchingByTag);
         displayRecipes(recipes);
@@ -200,7 +199,7 @@ function searchRecipes(recipes) {
         displayUstensils(recipes); 
       }
       
-      console.log(tagsSelectedTable);
+      console.log(tagsTable);
       
     })
   }
@@ -303,7 +302,7 @@ function searchRecipes(recipes) {
 
     if (searchValue.length > 2) {
       recipesListSection.innerHTML = "";
-        displayResult(results);
+        displayRecipes(results);
         displayRecipes(results);
         displayIngredients(results);
         displayAppliances(results);
