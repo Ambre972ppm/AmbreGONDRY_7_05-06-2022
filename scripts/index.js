@@ -119,7 +119,6 @@ function searchRecipes(recipes) {
   let ustensilsTable = [];
   let tagsTable = []; // tableau de tags
   
-  let searchingByTag = false;
   let newRecipesList = [];
 
   for (const recipe of recipes) {
@@ -142,7 +141,6 @@ function searchRecipes(recipes) {
 
       for(let tag of tagsTable) {
           displayRecipeByTags(tag);
-          searchingByTag = true;
       }
 
       if (tags == ingredientsList) {
@@ -185,16 +183,12 @@ function searchRecipes(recipes) {
         tagsTable.pop(e.target.textContent);
         console.log(tagsTable);
         console.log(tagsTable.length);
-        console.log(searchingByTag);
         for(let tag of tagsTable) {
           displayRecipeByTags(tag);
-          searchingByTag = true;
         };
       } else {
         recipesListSection.innerHTML = "";
         tagsTable = [];
-        searchingByTag = false;
-        console.log(searchingByTag);
         displayRecipes(recipes);
         displayIngredients(recipes);
         displayAppliances(recipes);
@@ -204,8 +198,7 @@ function searchRecipes(recipes) {
     })
   }
 
-  function displayRecipeByTags(tag){
-
+  function displayRecipeByTags(tag){    
     const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(tag.toLowerCase()));
     const filteredIngredients = recipes.filter(item => item.ingredients.find(el => el.ingredient.toLowerCase().includes(tag.toLowerCase())));
     const filteredDescription = recipes.filter(item => item.description.toLowerCase().includes(tag.toLowerCase()));
