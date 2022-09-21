@@ -63,13 +63,13 @@
   transition: all 0.5s;
   z-index: 3;
 }
-.sort-nav-menus #Ingredients, .sort-nav-menus #sortByIngredient, .sort-nav-menus #sortByIngredient li {
+.sort-nav-menus #ingredients, .sort-nav-menus #sortByIngredient, .sort-nav-menus #sortByIngredient li {
   background-color: #3282F7;
 }
-.sort-nav-menus #Appliances, .sort-nav-menus #sortByAppliance, .sort-nav-menus #sortByAppliance li {
+.sort-nav-menus #appliances, .sort-nav-menus #sortByAppliance, .sort-nav-menus #sortByAppliance li {
   background-color: #68D9A4;
 }
-.sort-nav-menus #Ustensils, .sort-nav-menus #sortByUstensil, .sort-nav-menus #sortByUstensil li {
+.sort-nav-menus #ustensils, .sort-nav-menus #sortByUstensil, .sort-nav-menus #sortByUstensil li {
   background-color: #ED6454;
 }
 
