@@ -284,7 +284,7 @@ function searchRecipes(recipes) {
          })
 
          const ustensilsSearchBar = document.querySelector("#ustensils");
-         ustensilsSearchBar.addEventListener("input", e => {
+         ustensilsSearchBar.oninput = function() {
             const ustensilsListToFilter = Array.from(new Set(newUstensilList));
             const searchValue = e.target.value.toLowerCase();
 
@@ -292,9 +292,16 @@ function searchRecipes(recipes) {
                ustensilsList.innerHTML = "";
                displayUstensils(recipes);
             }
-            const filteredUstensilsList = ustensilsListToFilter.filter(item => item.includes(searchValue.toLowerCase()));
-            const results = [...new Set([...filteredUstensilsList])];
 
+            const results = [];
+
+            ustensilsListToFilter.forEach(item => {
+              const filteredUstensilsList = item.toLowerCase().includes(searchValue.toLowerCase());
+              if (filteredUstensilsList) {
+                results.push(recipes)
+              };
+            });
+            
             if (searchValue.length > 2) {
                ustensilsList.innerHTML = "";
                results.forEach(ustensil =>{
@@ -310,29 +317,45 @@ function searchRecipes(recipes) {
             }
          })
       })
-   });
+   };
 
    // Recherhe principale dans la barr de recherche
-   searchBar.addEventListener("input", e => {
+   searchBar.oninput= function() {
       const searchValue = e.target.value.toLowerCase();
 
       if (searchValue.length < 3) {
          recipesListSection.innerHTML = "";
          displayRecipes(recipes);
       }
-      const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(searchValue.toLowerCase()));
-      const filteredIngredients = recipes.filter(recipe => recipe.ingredients.find(el => el.ingredient.toLowerCase().includes(searchValue.toLowerCase())));
-      const filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchValue.toLowerCase()));
-      const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
+
+      const results = [];
+
+      recipes.forEach(recipe => {
+        const filteredRecipes = recipes.name.toLowerCase().includes(searchInputValue.toLowerCase());
+        if (filteredRecipes) {
+            results.push(recipes)
+        };
+        const filteredIngredients = recipe.ingredients.forEach(ingredient => {
+          ingredient.ingredient.toLowerCase().includes(searchInputValue.toLowerCase());
+        });
+        if (filteredIngredients){
+          results.push(recipes)
+        }
+        const filteredDescription = recipes.description.toLowerCase().includes(searchInputValue.toLowerCase());
+        if(filteredDescription){
+            results.push(recipes)
+        };;
+      });
 
       if (searchValue.length > 2) {
-         recipesListSection.innerHTML = "";
-         displayRecipes(results);
-         displayIngredients(results);
-         displayAppliances(results);
-         displayUstensils(results);
+
+        recipesListSection.innerHTML = "";
+        displayRecipes(new Set(results));
+        displayIngredients(new Set(results));
+        displayAppliances(new Set(results));
+        displayUstensils(new Set(results));
       }
-   })
+   }
 
 }
 
