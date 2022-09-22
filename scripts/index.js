@@ -132,7 +132,7 @@ function displayTags(tagsTable) {
   let deleteTag = document.createElement('img');
   deleteTag.classList.add('delete-tag');
   deleteTag.classList.add('delete-tag-icon');
-  deleteTag.setAttribute('src', '/assets/icons/close_white.png');
+  deleteTag.setAttribute('src', './assets/icons/close_white.png');
 
   let recipesTable = [];
   let ingredientsTable = [];
