@@ -124,7 +124,7 @@ function displayUstensils(recipes) {
 }
 
 // Fonction qui affiche les tags sous la barre de recherche
-function displayTags(tagItem, tagsTable) {
+function displayTags(tagsTable) {
   const tagList = document.getElementById("tags");
   let selectedTag = document.createElement('span');
   selectedTag.classList.add('tag-selected', 'btn', 'm-3');
@@ -146,10 +146,15 @@ function displayTags(tagItem, tagsTable) {
       ustensilsTable.push(recipe.ustensils);
   })
 
+  
+
   tagList.appendChild(selectedTag);
-  selectedTag.textContent = tagItem;
+  tagsTable.find((tagItem) => {
+    selectedTag.textContent = tagItem;
+  });  
   selectedTag.appendChild(deleteTag);
 
+  displayRecipeByTags(recipes, tagsTable);
   deleteSelectedTag(selectedTag, tagsTable);
 }
 
@@ -186,18 +191,18 @@ function handleTagItems(tags) {
      let tagItem = e.target.textContent;
      tagsTable.push(tagItem);
 
-      displayRecipeByTags(recipes, tagsTable);
-
      if (tags == ingredientsList) {
-        displayTags(tagItem, tagsTable);
-        tagList.lastChild.classList.add('ingredient-tag'); // Bleu
-     } else if (tags == appliancesList) {
-        displayTags(tagItem, tagsTable);
-        tagList.lastChild.classList.add('appliance-tag'); // Vert
-     } else if (tags == ustensilsList) {
-        displayTags(tagItem, tagsTable);
-        tagList.lastChild.classList.add('ustensil-tag'); // Rouge
-     }
+      displayTags(tagsTable);
+      tagList.lastChild.classList.add('ingredient-tag'); // Bleu
+   } else if (tags == appliancesList) {
+      displayTags(tagsTable);
+      tagList.lastChild.classList.add('appliance-tag'); // Vert
+   } else if (tags == ustensilsList) {
+      displayTags(tagsTable);
+      tagList.lastChild.classList.add('ustensil-tag'); // Rouge
+   }
+
+     console.log(tagsTable)
   })
 }
 
@@ -205,7 +210,6 @@ function handleTagItems(tags) {
 function displayRecipeByTags(recipes, tagsTable) {
   let allRecipes = [];
   let newRecipesList = [];
-
   const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
   const filteredIngredients = recipes.filter(item => item.ingredients.find(el => el.ingredient.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase()))));
   const filteredDescription = recipes.filter(item => item.description.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
