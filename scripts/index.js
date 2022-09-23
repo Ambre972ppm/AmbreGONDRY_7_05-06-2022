@@ -28,8 +28,8 @@ function displayRecipes(recipes) {
    displayAppliances(recipes);
    displayUstensils(recipes);
 }
-
-function openDropDownMenu() { // fonction qui anime la flèche du menu déroulant qu'on ouvre
+// Fonction qui anime la flèche du menu déroulant qu'on ouvre
+function openDropDownMenu() {
    const filterMenus = document.querySelectorAll('.dropdown-toggle');
 
    filterMenus.forEach((menu) => { // on anime la flèche au clic
@@ -43,8 +43,8 @@ function openDropDownMenu() { // fonction qui anime la flèche du menu déroulan
       })
    })
 }
-
-function displayIngredients(recipes) { //fonction qui affiche la liste des ingredients
+// Fonction qui affiche la liste des ingredients dans le menu filtre des ingrédients
+function displayIngredients(recipes) {
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let ingredients = [];
    const ingredientsList = document.querySelector('.ingredients-list');
@@ -68,8 +68,8 @@ function displayIngredients(recipes) { //fonction qui affiche la liste des ingre
       ingredientLine.appendChild(ingredientLink);
    });
 }
-
-function displayAppliances(recipes) { //fonction qui affiche la liste des appareils
+// Fonction qui affiche la liste des appareils dans le menu filtre des appareils
+function displayAppliances(recipes) {
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let appliances = [];
    const appliancesList = document.querySelector('.appliances-list');
@@ -91,8 +91,8 @@ function displayAppliances(recipes) { //fonction qui affiche la liste des appare
       applianceLine.appendChild(applianceLink);
    });
 }
-
-function displayUstensils(recipes) { //fonction qui affiche la liste des ustensiles
+// Fonction qui affiche la liste des ustensiles dans le menu des ustensiles
+function displayUstensils(recipes) {
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let ustensils = [];
    const ustensilsList = document.querySelector('.ustensils-list');
@@ -116,7 +116,7 @@ function displayUstensils(recipes) { //fonction qui affiche la liste des ustensi
       ustensilLine.appendChild(ustensilLink);
    });
 }
-
+// Fonction manipulation des tags
 function handleTagItems(tags) {
   const tagList = document.getElementById("tags"); // conteneur de tags
   const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
@@ -129,25 +129,23 @@ function handleTagItems(tags) {
     let tagItem = e.target.textContent;
     tagsTable.push(tagItem);
 
-    // tagsTable.forEach(tag =>  {
-      displayRecipeByTags(tagItem, tagsTable);
-    // });
+    displayRecipeByTags(recipes, tagsTable);
 
     if (tags == ingredientsList) {
-      displayTags(tagItem, tagsTable);
+      displayTags(tagsTable);
       tagList.lastChild.classList.add('ingredient-tag');
 
     } else if (tags == appliancesList) {
-      displayTags(tagItem, tagsTable);
+      displayTags(tagsTable);
       tagList.lastChild.classList.add('appliance-tag');
     } else if (tags == ustensilsList) {
-      displayTags(tagItem, tagsTable);
+      displayTags(tagsTable);
       tagList.lastChild.classList.add('ustensil-tag');
     }
   })
 }
-
-function displayTags(value) {
+// Fonction qui affiche les tags sous la barre de recherche
+function displayTags(tagsTable) {
   const tagList = document.getElementById("tags");
   let selectedTag = document.createElement('span');
   let deleteTag = document.createElement('img');
@@ -156,10 +154,30 @@ function displayTags(value) {
   deleteTag.classList.add('delete-tag-icon');
   deleteTag.setAttribute('src', '/assets/icons/close_white.png');
 
+  let recipesTable = [];
+
+  recipes.forEach(recipe =>  {
+    recipesTable.push(recipe);
+    ingredientsTable.push(recipe.ingredients);
+    appliancesTable.push(recipe.appliance);
+    ustensilsTable.push(recipe.ustensils);
+  });
+
+  displayIngredients(recipes);
+  displayAppliances(recipes);
+  displayUstensils(recipes);
+
+
   tagList.appendChild(selectedTag);
-  selectedTag.textContent = value;
+  tagsTable.find((tagItem) => {
+    selectedTag.textContent = tagItem;
+  });
   selectedTag.appendChild(deleteTag);
 
+  deleteSelectedTag(selectedTag, tagsTable);
+}
+
+function deleteSelectedTag(selectedTag, tagsTable) {
   selectedTag.addEventListener('click', function (e) {
     console.log('delete');
     e.target.remove();
@@ -179,11 +197,12 @@ function displayTags(value) {
       displayAppliances(recipes);
       displayUstensils(recipes);
     }
-
   })
 }
 
 function displayRecipeByTags(tag) {
+  let newRecipesList = [];
+
   const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(tag.toLowerCase()));
   const filteredIngredients = recipes.filter(item => item.ingredients.find(el => el.ingredient.toLowerCase().includes(tag.toLowerCase())));
   const filteredDescription = recipes.filter(item => item.description.toLowerCase().includes(tag.toLowerCase()));
@@ -320,6 +339,7 @@ function findRecipesBySearchBar(recipes) {
     }
 
     const results = [];
+    let newRecipesList = [];
 
     recipes.forEach(recipe => {
       const filteredRecipes = recipe.name.toLowerCase().includes(searchValue.toLowerCase());
@@ -336,46 +356,27 @@ function findRecipesBySearchBar(recipes) {
       if(filteredDescription){
           results.push(recipes)
       };;
+
+      newRecipesList = new Set(results);
     });
 
-    if (searchValue.length > 2) {
 
+    if (searchValue.length > 2) {
       recipesListSection.innerHTML = "";
-      displayRecipes(new Set(results));
-      displayIngredients(new Set(results));
-      displayAppliances(new Set(results));
-      displayUstensils(new Set(results));
+      displayRecipes(newRecipesList);
+      displayIngredients(newRecipesList);
+      displayAppliances(newRecipesList);
+      displayUstensils(newRecipesList);
     }
  }
 }
-
+// Recherche à l'aides des tags
 function searchRecipes(recipes) {
   const filterMenus = document.querySelectorAll('.dropdown-toggle'); // menu déroulants des filtres
-  const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
-  const ustensilsList = document.querySelector('.ustensils-list'); // liste d'ustensiles
-  const appliancesList = document.querySelector('.appliances-list'); // liste d'appareils
-  const recipesListSection = document.getElementById("recipes-list");
-
   let recipesTable = [];
   let ingredientsTable = [];
   let appliancesTable = [];
-  let ustensilsTable = [];
-  let tagsTable = []; // tableau de tags
-
-  let newRecipesList = [];
-
-  recipes.forEach(recipe =>  {
-    recipesTable.push(recipe);
-    ingredientsTable.push(recipe.ingredients);
-    appliancesTable.push(recipe.appliance);
-    ustensilsTable.push(recipe.ustensils);
-  });
-
-  displayIngredients(recipes);
-  displayAppliances(recipes);
-  displayUstensils(recipes);
-
-  
+  let ustensilsTable = [];  
 
   filterMenus.forEach(dropdown => {
     dropdown.addEventListener('keyup', function (e) {
@@ -404,7 +405,7 @@ function searchRecipes(recipes) {
 
 function init() {
    displayRecipes(recipes);
-  //  searchRecipes(recipes);
+   searchRecipes(recipes);
    findRecipesBySearchBar(recipes);
 }
 

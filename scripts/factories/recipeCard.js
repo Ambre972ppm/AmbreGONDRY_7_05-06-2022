@@ -36,7 +36,7 @@ function recipeFactory(recipe) {
        recipeIngredients.setAttribute('class', "recipe-ingredients px-2 w-50");
        recipeContent.appendChild(recipeIngredients);
  
-       recipe.ingredients.forEach(ingredientline => {
+       recipe.ingredients.forEach((ingredientline) => {
           const recipeIngredient = document.createElement('li');
           recipeIngredients.appendChild(recipeIngredient);
           const ingredient = ingredientline.ingredient;
