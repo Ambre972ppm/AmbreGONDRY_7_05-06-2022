@@ -218,6 +218,7 @@ function displayRecipeByTags(tag) {
 
 // Recherche au clavier dans l'input des menus de filtres : Ingredients
 function findIngredientByFilterSearchBar(newIngredientList) {
+  const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
   const ingredientsSearchBar = document.querySelector("#ingredients");
   ingredientsSearchBar.addEventListener("input", e => {
     const ingredientsListToFilter = Array.from(new Set(newIngredientList));
@@ -255,6 +256,7 @@ function findIngredientByFilterSearchBar(newIngredientList) {
 
 // Recherche au clavier dans l'input des menus de filtres : Appareils
 function findApplianceByFilterSearchBar(newApplianceList) {
+  const appliancesList = document.querySelector('.appliances-list'); // liste d'appareils
   const aplliancesSearchBar = document.querySelector("#appliances");
   aplliancesSearchBar.addEventListener("input", e => {
     const appliancesListToFilter = Array.from(new Set(newApplianceList));
@@ -291,6 +293,7 @@ function findApplianceByFilterSearchBar(newApplianceList) {
 
 // Recherche au clavier dans l'input des menus de filtres : Ustensiles
 function findUstensilByFilterSearchBar(newUstensilList) {
+  const ustensilsList = document.querySelector('.ustensils-list'); // liste d'ustensiles
   const ustensilsSearchBar = document.querySelector("#ustensils");
       ustensilsSearchBar.oninput = function() {
         const ustensilsListToFilter = Array.from(new Set(newUstensilList));
