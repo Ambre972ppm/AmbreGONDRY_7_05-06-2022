@@ -220,7 +220,7 @@ function displayRecipeByTags(tag) {
 function findIngredientByFilterSearchBar(newIngredientList) {
   const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
   const ingredientsSearchBar = document.querySelector("#ingredients");
-  ingredientsSearchBar.addEventListener("input", e => {
+  ingredientsSearchBar.oninput = function(e) {
     const ingredientsListToFilter = Array.from(new Set(newIngredientList));
     const searchValue = e.target.value.toLowerCase();
 
@@ -251,14 +251,14 @@ function findIngredientByFilterSearchBar(newIngredientList) {
           ingredientLine.appendChild(ingredientLink);
         });
     }
-  })
+  }
 }
 
 // Recherche au clavier dans l'input des menus de filtres : Appareils
 function findApplianceByFilterSearchBar(newApplianceList) {
   const appliancesList = document.querySelector('.appliances-list'); // liste d'appareils
   const aplliancesSearchBar = document.querySelector("#appliances");
-  aplliancesSearchBar.addEventListener("input", e => {
+  aplliancesSearchBar.oninput = function(e) {
     const appliancesListToFilter = Array.from(new Set(newApplianceList));
     const searchValue = e.target.value.toLowerCase();
 
@@ -288,14 +288,14 @@ function findApplianceByFilterSearchBar(newApplianceList) {
           applianceLine.appendChild(applianceLink);
         });
     }
-  })
+  }
 }
 
 // Recherche au clavier dans l'input des menus de filtres : Ustensiles
 function findUstensilByFilterSearchBar(newUstensilList) {
   const ustensilsList = document.querySelector('.ustensils-list'); // liste d'ustensiles
   const ustensilsSearchBar = document.querySelector("#ustensils");
-      ustensilsSearchBar.oninput = function() {
+      ustensilsSearchBar.oninput = function(e) {
         const ustensilsListToFilter = Array.from(new Set(newUstensilList));
         const searchValue = e.target.value.toLowerCase();
 
