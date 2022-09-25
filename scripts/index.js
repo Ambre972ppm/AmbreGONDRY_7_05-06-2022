@@ -338,6 +338,7 @@ function findRecipesBySearchBar(recipes) {
   const searchBar = document.querySelector("#search-bar");
   searchBar.oninput= function(e) {
     const searchValue = e.target.value.toLowerCase();
+    console.log (searchValue)
 
     if (searchValue.length < 3) {
        recipesListSection.innerHTML = "";
@@ -345,34 +346,31 @@ function findRecipesBySearchBar(recipes) {
     }
 
     const results = [];
-    let newRecipesList = [];
 
-    recipes.forEach(recipe => {
+    recipes.forEach((recipe) => {
       const filteredRecipes = recipe.name.toLowerCase().includes(searchValue.toLowerCase());
       if (filteredRecipes) {
-          results.push(recipes)
+          results.push(recipe)
       };
-      const filteredIngredients = recipe.ingredients.forEach(ingredient => {
+      const filteredIngredients = recipe.ingredients.find((ingredient) => {
         ingredient.ingredient.toLowerCase().includes(searchValue.toLowerCase());
       });
       if (filteredIngredients){
-        results.push(recipes)
+        results.push(recipe)
       }
       const filteredDescription = recipe.description.toLowerCase().includes(searchValue.toLowerCase());
       if(filteredDescription){
-          results.push(recipes)
-      };;
-
-      newRecipesList = new Set(results);
+          results.push(recipe)
+      };
     });
 
-
     if (searchValue.length > 2) {
+
       recipesListSection.innerHTML = "";
-      displayRecipes(newRecipesList);
-      displayIngredients(newRecipesList);
-      displayAppliances(newRecipesList);
-      displayUstensils(newRecipesList);
+      displayRecipes(new Set(results));
+      displayIngredients(new Set(results));
+      displayAppliances(new Set(results));
+      displayUstensils(new Set(results));
     }
  }
 }
