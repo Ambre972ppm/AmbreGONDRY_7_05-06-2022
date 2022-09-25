@@ -155,6 +155,9 @@ function displayTags(tagsTable) {
   deleteTag.setAttribute('src', '/assets/icons/close_white.png');
 
   let recipesTable = [];
+  let ingredientsTable = [];
+  let appliancesTable = [];
+  let ustensilsTable = [];
 
   recipes.forEach(recipe =>  {
     recipesTable.push(recipe);
@@ -200,12 +203,12 @@ function deleteSelectedTag(selectedTag, tagsTable) {
   })
 }
 
-function displayRecipeByTags(tag) {
+function displayRecipeByTags(recipes, tagsTable) {
   let newRecipesList = [];
 
-  const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(tag.toLowerCase()));
-  const filteredIngredients = recipes.filter(item => item.ingredients.find(el => el.ingredient.toLowerCase().includes(tag.toLowerCase())));
-  const filteredDescription = recipes.filter(item => item.description.toLowerCase().includes(tag.toLowerCase()));
+  const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
+  const filteredIngredients = recipes.filter(item => item.ingredients.find(el => el.ingredient.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase()))));
+  const filteredDescription = recipes.filter(item => item.description.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
   const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
   newRecipesList = results;
 
@@ -374,19 +377,14 @@ function findRecipesBySearchBar(recipes) {
  }
 }
 // Recherche à l'aides des tags
-function searchRecipes(recipes) {
+function sortRecipesByFilters(recipes) {
   const filterMenus = document.querySelectorAll('.dropdown-toggle'); // menu déroulants des filtres
-  let recipesTable = [];
-  let ingredientsTable = [];
-  let appliancesTable = [];
-  let ustensilsTable = [];  
+  let newIngredientList = [];
+  let newApplianceList = [];
+  let newUstensilList = [];
 
   filterMenus.forEach(dropdown => {
-    dropdown.addEventListener('keyup', function (e) {
-      let newIngredientList = [];
-      let newApplianceList = [];
-      let newUstensilList = [];
-
+    dropdown.onkeyup = function() {
       recipes.forEach(dropdownData => {
         dropdownData.ingredients.forEach(ingredient => {
           newIngredientList.push(ingredient.ingredient.toLowerCase());
@@ -401,14 +399,13 @@ function searchRecipes(recipes) {
       findIngredientByFilterSearchBar(newIngredientList);
       findApplianceByFilterSearchBar(newApplianceList);
       findUstensilByFilterSearchBar(newUstensilList);
-    })
+    }
   });
-
 }
 
 function init() {
    displayRecipes(recipes);
-   searchRecipes(recipes);
+   sortRecipesByFilters(recipes);
    findRecipesBySearchBar(recipes);
 }
 
