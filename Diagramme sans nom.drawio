@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-09-26T06:20:11.536Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="4MybNlwqGncAyryurici" version="20.3.6" type="github">
+<mxfile host="app.diagrams.net" modified="2022-09-26T06:34:00.574Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36" etag="XTyXJ0FDKwj74JUjYifT" version="20.3.6" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2370" dy="1337" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2370" dy="1242" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -72,11 +72,11 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="7H8xr5HaLFff8GM3fQpU-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="7H8xr5HaLFff8GM3fQpU-25" target="7H8xr5HaLFff8GM3fQpU-43">
+        <mxCell id="7H8xr5HaLFff8GM3fQpU-50" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="7H8xr5HaLFff8GM3fQpU-25" target="7H8xr5HaLFff8GM3fQpU-37">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="7H8xr5HaLFff8GM3fQpU-25" value="Tableau du resultats des recettes trouvées" style="whiteSpace=wrap;html=1;rounded=1;shadow=0;strokeWidth=1;spacing=6;spacingTop=-4;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="295.5" y="810" width="120" height="60" as="geometry" />
+          <mxGeometry x="295.5" y="857" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="7H8xr5HaLFff8GM3fQpU-26" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="7H8xr5HaLFff8GM3fQpU-18" target="7H8xr5HaLFff8GM3fQpU-25">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -152,11 +152,10 @@
         <mxCell id="7H8xr5HaLFff8GM3fQpU-41" value="&lt;span style=&quot;font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(248, 249, 250); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font color=&quot;#00cc00&quot;&gt;Yes&lt;/font&gt;&lt;/b&gt;&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="438" y="1007" width="50" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="7H8xr5HaLFff8GM3fQpU-42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="7H8xr5HaLFff8GM3fQpU-43" target="7H8xr5HaLFff8GM3fQpU-37">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="7H8xr5HaLFff8GM3fQpU-43" value="On filtre les doublons" style="whiteSpace=wrap;html=1;rounded=1;shadow=0;strokeWidth=1;spacing=6;spacingTop=-4;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="298" y="910" width="115" height="43" as="geometry" />
+        <mxCell id="7H8xr5HaLFff8GM3fQpU-42" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" target="7H8xr5HaLFff8GM3fQpU-37">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="355.5" y="953" as="sourcePoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="7H8xr5HaLFff8GM3fQpU-44" value="affiche le menu ingredients avec les ingredients des recettes trouvées" style="whiteSpace=wrap;html=1;rounded=1;shadow=0;strokeWidth=1;spacing=6;spacingTop=-4;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="665" y="914.5" width="120" height="60" as="geometry" />
