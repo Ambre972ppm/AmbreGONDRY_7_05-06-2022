@@ -349,17 +349,16 @@ function findRecipesBySearchBar(recipes) {
 
     recipes.forEach((recipe) => {
       const filteredRecipes = recipe.name.toLowerCase().includes(searchValue.toLowerCase());
-      if (filteredRecipes) {
-          results.push(recipe)
-      };
       const filteredIngredients = recipe.ingredients.find((ingredient) => {
         ingredient.ingredient.toLowerCase().includes(searchValue.toLowerCase());
       });
-      if (filteredIngredients){
-        results.push(recipe)
-      }
       const filteredDescription = recipe.description.toLowerCase().includes(searchValue.toLowerCase());
-      if(filteredDescription){
+
+      if (filteredRecipes) {
+          results.push(recipe)
+      } else if (filteredIngredients){
+        results.push(recipe)
+      } else if(filteredDescription){
           results.push(recipe)
       };
     });
@@ -367,10 +366,10 @@ function findRecipesBySearchBar(recipes) {
     if (searchValue.length > 2) {
 
       recipesListSection.innerHTML = "";
-      displayRecipes(new Set(results));
-      displayIngredients(new Set(results));
-      displayAppliances(new Set(results));
-      displayUstensils(new Set(results));
+      displayRecipes(results);
+      displayIngredients(results);
+      displayAppliances(results);
+      displayUstensils(results);
     }
  }
 }
