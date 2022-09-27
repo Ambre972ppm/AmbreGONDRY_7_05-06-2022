@@ -348,17 +348,17 @@ function findRecipesBySearchBar(recipes) {
     const results = [];
 
     recipes.forEach((recipe) => {
-      const filteredRecipes = recipe.name.toLowerCase().includes(searchValue.toLowerCase());
-      const filteredIngredients = recipe.ingredients.find((ingredient) => {
+      const filteredByName = recipe.name.toLowerCase().includes(searchValue.toLowerCase());
+      const filteredByIngredients = recipe.ingredients.find((ingredient) => {
         ingredient.ingredient.toLowerCase().includes(searchValue.toLowerCase());
       });
-      const filteredDescription = recipe.description.toLowerCase().includes(searchValue.toLowerCase());
+      const filteredByDescription = recipe.description.toLowerCase().includes(searchValue.toLowerCase());
 
-      if (filteredRecipes) {
+      if (filteredByName) {
           results.push(recipe)
-      } else if (filteredIngredients){
+      } else if (filteredByIngredients){
         results.push(recipe)
-      } else if(filteredDescription){
+      } else if(filteredByDescription){
           results.push(recipe)
       };
     });
