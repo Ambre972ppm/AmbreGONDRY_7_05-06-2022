@@ -360,10 +360,10 @@ function findRecipesBySearchBar(recipes) {
          recipesListSection.innerHTML = "";
          displayRecipes(recipes);
       }
-      const foundRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(searchValue.toLowerCase()));
-      const foundIngredients = recipes.filter(recipe => recipe.ingredients.find(el => el.ingredient.toLowerCase().includes(searchValue.toLowerCase())));
-      const foundDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchValue.toLowerCase()));
-      const results = [...new Set([...foundRecipes, ...foundIngredients, ...foundDescription])];
+      const filteredByName = recipes.filter(recipe => recipe.name.toLowerCase().includes(searchValue.toLowerCase()));
+      const filteredByIngredients = recipes.filter(recipe => recipe.ingredients.find(item => item.ingredient.toLowerCase().includes(searchValue.toLowerCase())));
+      const filteredByDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchValue.toLowerCase()));
+      const results = [...new Set([...filteredByName, ...filteredByIngredients, ...filteredByDescription])];
 
       if (searchValue.length > 2) {
          recipesListSection.innerHTML = "";
