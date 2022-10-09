@@ -3,9 +3,6 @@ import recipes from './data/recipes.js'; // import des recettes du fichier recip
 // fonction qui affiche le resultat de recherche
 function displayRecipes(recipes) {
    const recipesListSection = document.getElementById("recipes-list");
-   const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
-   const ustensilsList = document.querySelector('.ustensils-list'); // liste d'ustensiles
-   const appliancesList = document.querySelector('.appliances-list'); // liste d'appareils
  
    recipesListSection.innerHTML = "";
 
@@ -21,9 +18,6 @@ function displayRecipes(recipes) {
       recipesListSection.innerHTML = `<span class="no-recipes"> Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc. </span>`
    }
 
-   handleTagItems(ingredientsList);
-   handleTagItems(appliancesList);
-   handleTagItems(ustensilsList);
    displayIngredients(recipes);
    displayAppliances(recipes);
    displayUstensils(recipes);
@@ -117,7 +111,7 @@ function displayUstensils(recipes) {
    });
 }
 // Fonction manipulation des tags
-function handleTagItems(tags) {
+function handleTagItems() {
   const tagList = document.getElementById("tags"); // conteneur de tags
   const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
   const ustensilsList = document.querySelector('.ustensils-list'); // liste d'ustensiles
@@ -196,9 +190,6 @@ function deleteSelectedTag(selectedTag, tagsTable) {
       recipesListSection.innerHTML = "";
       tagsTable = [];
       displayRecipes(recipes);
-      displayIngredients(recipes);
-      displayAppliances(recipes);
-      displayUstensils(recipes);
     }
   })
 }
@@ -367,9 +358,6 @@ function findRecipesBySearchBar(recipes) {
 
       recipesListSection.innerHTML = "";
       displayRecipes(results);
-      displayIngredients(results);
-      displayAppliances(results);
-      displayUstensils(results);
     }
  }
 }
@@ -404,6 +392,7 @@ function init() {
    displayRecipes(recipes);
    sortRecipesByFilters(recipes);
    findRecipesBySearchBar(recipes);
+   handleTagItems();
 }
 
 init();
