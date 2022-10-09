@@ -1,6 +1,12 @@
-import recipes from './data/recipes.js'; // import des recettes du fichier recipe.js
+//--------------------------------------------------------------------------------------
+// import des recettes du fichier recipe.js
+//--------------------------------------------------------------------------------------
+import recipes from './data/recipes.js';
 
-// fonction qui affiche le resultat de recherche
+
+//--------------------------------------------------------------------------------------
+// fonction qui affiche les recettes
+//--------------------------------------------------------------------------------------
 function displayRecipes(recipes) {
    const recipesListSection = document.getElementById("recipes-list");
  
@@ -22,7 +28,10 @@ function displayRecipes(recipes) {
    displayAppliances(recipes);
    displayUstensils(recipes);
 }
+
+//--------------------------------------------------------------------------------------
 // Fonction qui anime la flèche du menu déroulant qu'on ouvre
+//--------------------------------------------------------------------------------------
 function openDropDownMenu() {
    const filterMenus = document.querySelectorAll('.dropdown-toggle');
 
@@ -37,7 +46,10 @@ function openDropDownMenu() {
       })
    })
 }
+
+//--------------------------------------------------------------------------------------
 // Fonction qui affiche la liste des ingredients dans le menu filtre des ingrédients
+//--------------------------------------------------------------------------------------
 function displayIngredients(recipes) {
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let ingredients = [];
@@ -62,7 +74,10 @@ function displayIngredients(recipes) {
       ingredientLine.appendChild(ingredientLink);
    });
 }
+
+//--------------------------------------------------------------------------------------
 // Fonction qui affiche la liste des appareils dans le menu filtre des appareils
+//--------------------------------------------------------------------------------------
 function displayAppliances(recipes) {
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let appliances = [];
@@ -85,7 +100,10 @@ function displayAppliances(recipes) {
       applianceLine.appendChild(applianceLink);
    });
 }
+
+//--------------------------------------------------------------------------------------
 // Fonction qui affiche la liste des ustensiles dans le menu des ustensiles
+//--------------------------------------------------------------------------------------
 function displayUstensils(recipes) {
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let ustensils = [];
@@ -110,35 +128,46 @@ function displayUstensils(recipes) {
       ustensilLine.appendChild(ustensilLink);
    });
 }
+
+//--------------------------------------------------------------------------------------
 // Fonction manipulation des tags
+//--------------------------------------------------------------------------------------
 function handleTagItems() {
-  const tagList = document.getElementById("tags"); // conteneur de tags
-  const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
-  const ustensilsList = document.querySelector('.ustensils-list'); // liste d'ustensiles
-  const appliancesList = document.querySelector('.appliances-list'); // liste d'appareils
-  const tagsTable = [];
+  const tagList = document.getElementById("tags");
+  const ingredientsList = document.querySelector('.ingredients-list');
+  const ustensilsList = document.querySelector('.ustensils-list');
+  const appliancesList = document.querySelector('.appliances-list');
 
-  tags.addEventListener('click', function (e) {
-    e.preventDefault();
-    let tagItem = e.target.textContent;
-    tagsTable.push(tagItem);
+  let tagsTable = [];
 
-    displayRecipeByTags(recipes, tagsTable);
-
-    if (tags == ingredientsList) {
+    ingredientsList.addEventListener('click', function (e) {
+      e.preventDefault();
+      let tagItem = e.target.textContent;
+      tagsTable.push(tagItem);
       displayTags(tagsTable);
-      tagList.lastChild.classList.add('ingredient-tag');
+      tagList.lastChild.classList.add('ingredient-tag'); // Bleu
+    })
 
-    } else if (tags == appliancesList) {
+    appliancesList.addEventListener('click', function (e) {
+      e.preventDefault();
+      let tagItem = e.target.textContent;
+      tagsTable.push(tagItem);
       displayTags(tagsTable);
-      tagList.lastChild.classList.add('appliance-tag');
-    } else if (tags == ustensilsList) {
+      tagList.lastChild.classList.add('appliance-tag'); // Vert
+    })
+
+    ustensilsList.addEventListener('click', function (e) {
+      e.preventDefault();
+      let tagItem = e.target.textContent;
+      tagsTable.push(tagItem);
       displayTags(tagsTable);
-      tagList.lastChild.classList.add('ustensil-tag');
-    }
-  })
+      tagList.lastChild.classList.add('ustensil-tag'); // Rouge
+    })
 }
+
+//--------------------------------------------------------------------------------------
 // Fonction qui affiche les tags sous la barre de recherche
+//--------------------------------------------------------------------------------------
 function displayTags(tagsTable) {
   const tagList = document.getElementById("tags");
   let selectedTag = document.createElement('span');
@@ -174,6 +203,9 @@ function displayTags(tagsTable) {
   deleteSelectedTag(selectedTag, tagsTable);
 }
 
+//--------------------------------------------------------------------------------------
+// Fonction de suppression des tags selectionnés
+//--------------------------------------------------------------------------------------
 function deleteSelectedTag(selectedTag, tagsTable) {
   selectedTag.addEventListener('click', function (e) {
     console.log('delete');
@@ -194,6 +226,9 @@ function deleteSelectedTag(selectedTag, tagsTable) {
   })
 }
 
+//--------------------------------------------------------------------------------------
+// Fonction d'affichage des recettes à l'aide des tags
+//--------------------------------------------------------------------------------------
 function displayRecipeByTags(recipes, tagsTable) {
   let newRecipesList = [];
 
@@ -210,7 +245,9 @@ function displayRecipeByTags(recipes, tagsTable) {
   displayRecipes(newRecipesList);
 }
 
+//--------------------------------------------------------------------------------------
 // Recherche au clavier dans l'input des menus de filtres : Ingredients
+//--------------------------------------------------------------------------------------
 function findIngredientByFilterSearchBar(newIngredientList) {
   const ingredientsList = document.querySelector('.ingredients-list'); // liste d'ingrédients
   const ingredientsSearchBar = document.querySelector("#ingredients");
@@ -248,7 +285,9 @@ function findIngredientByFilterSearchBar(newIngredientList) {
   }
 }
 
+//--------------------------------------------------------------------------------------
 // Recherche au clavier dans l'input des menus de filtres : Appareils
+//--------------------------------------------------------------------------------------
 function findApplianceByFilterSearchBar(newApplianceList) {
   const appliancesList = document.querySelector('.appliances-list'); // liste d'appareils
   const aplliancesSearchBar = document.querySelector("#appliances");
@@ -285,7 +324,9 @@ function findApplianceByFilterSearchBar(newApplianceList) {
   }
 }
 
+//--------------------------------------------------------------------------------------
 // Recherche au clavier dans l'input des menus de filtres : Ustensiles
+//--------------------------------------------------------------------------------------
 function findUstensilByFilterSearchBar(newUstensilList) {
   const ustensilsList = document.querySelector('.ustensils-list'); // liste d'ustensiles
   const ustensilsSearchBar = document.querySelector("#ustensils");
@@ -323,7 +364,9 @@ function findUstensilByFilterSearchBar(newUstensilList) {
       }
 }
 
+//--------------------------------------------------------------------------------------
 // Recherche principale dans la barre de recherche
+//--------------------------------------------------------------------------------------
 function findRecipesBySearchBar(recipes) {
   const recipesListSection = document.getElementById("recipes-list");
   const searchBar = document.querySelector("#search-bar");
@@ -361,7 +404,10 @@ function findRecipesBySearchBar(recipes) {
     }
  }
 }
+
+//--------------------------------------------------------------------------------------
 // Recherche à l'aides des tags
+//--------------------------------------------------------------------------------------
 function sortRecipesByFilters(recipes) {
   const filterMenus = document.querySelectorAll('.dropdown-toggle'); // menu déroulants des filtres
   let newIngredientList = [];
