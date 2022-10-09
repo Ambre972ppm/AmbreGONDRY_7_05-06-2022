@@ -177,6 +177,8 @@ function displayTags(tagsTable) {
   deleteTag.classList.add('delete-tag-icon');
   deleteTag.setAttribute('src', '/assets/icons/close_white.png');
 
+  console.log(tagsTable)
+
   let recipesTable = [];
   let ingredientsTable = [];
   let appliancesTable = [];
@@ -200,6 +202,7 @@ function displayTags(tagsTable) {
   });
   selectedTag.appendChild(deleteTag);
 
+  displayRecipeByTags(recipes, tagsTable);
   deleteSelectedTag(selectedTag, tagsTable);
 }
 
