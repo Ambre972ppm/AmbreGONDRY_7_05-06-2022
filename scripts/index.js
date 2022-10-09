@@ -207,6 +207,7 @@ function displayTags(tagsTable) {
 // Fonction de suppression des tags selectionnés
 //--------------------------------------------------------------------------------------
 function deleteSelectedTag(selectedTag, tagsTable) {
+  const recipesListSection = document.getElementById("recipes-list");
   selectedTag.addEventListener('click', function (e) {
     console.log('delete');
     e.target.remove();
