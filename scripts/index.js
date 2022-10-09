@@ -234,6 +234,7 @@ function deleteSelectedTag(selectedTag, tagsTable) {
 // Fonction d'affichage des recettes à l'aide des tags
 //--------------------------------------------------------------------------------------
 function displayRecipeByTags(recipes, tagsTable) {
+  let allRecipes = [];
   let newRecipesList = [];
 
   const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
@@ -242,9 +243,11 @@ function displayRecipeByTags(recipes, tagsTable) {
   const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
   newRecipesList = results;
 
-  displayIngredients(newRecipesList);
-  displayAppliances(newRecipesList);
-  displayUstensils(newRecipesList);
+  if (tagsTable.length > 0) {
+    recipes = newRecipesList;
+ } else {
+    recipes = allRecipes;
+ }
 
   displayRecipes(newRecipesList);
 }
