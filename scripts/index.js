@@ -233,8 +233,7 @@ function deleteSelectedTag(selectedTag, tagsTable) {
 // Fonction d'affichage des recettes à l'aide des tags
 //--------------------------------------------------------------------------------------
 function displayRecipeByTags(recipes, tagsTable) {
-
-  if (tagsTable.length > 0) {
+  if (tagsTable.length > 1) {
     recipes = remainingRecipes;
  } else {
     recipes = allRecipes;
@@ -243,7 +242,7 @@ function displayRecipeByTags(recipes, tagsTable) {
  const lastTagPush = tagsTable[tagsTable.length-1];
 
   const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(lastTagPush));
-  const filteredIngredients = recipes.filter(recipe => recipe.ingredients.find(ingredient => ingredient.ingredient.toLowerCase().includes(lastTagPush)));
+  const filteredIngredients = recipes.filter(recipe => recipe.ingredients.find(el => el.ingredient.toLowerCase().includes(lastTagPush)));
   const filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(lastTagPush));
   const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
   remainingRecipes = results;
