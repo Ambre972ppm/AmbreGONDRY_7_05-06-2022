@@ -3,16 +3,19 @@
 //--------------------------------------------------------------------------------------
 import recipes from './data/recipes.js';
 
+let allRecipes = recipes;
+let remainingRecipes = [];
+
 //--------------------------------------------------------------------------------------
 // Fonction qui affiche les recettes
 //--------------------------------------------------------------------------------------
 function displayRecipes(recipes) {
-console.log("displayRecipes")
+
   const recipesListSection = document.getElementById("recipes-list"); // conteneur de recette
 
   recipesListSection.innerHTML = ""; // reinitialisation des recette
 
-   recipes.forEach((recipe) => {
+  recipes.forEach((recipe) => {
       const recipeModel = recipeFactory(recipe);
       const recipeCard = recipeModel.generateRecipeCard();
       recipesListSection.appendChild(recipeCard);
@@ -33,7 +36,7 @@ console.log("displayRecipes")
 // Fonction qui anime la flèche du menu déroulant qu'on ouvre
 //--------------------------------------------------------------------------------------
 function openDropDownMenu() {
-  // console.log("openDropDownMenu")
+
    const filterMenus = document.querySelectorAll('.dropdown-toggle');
 
    filterMenus.forEach((menu) => { // on anime la flèche au clic
@@ -53,7 +56,6 @@ function openDropDownMenu() {
 // Fonction qui affiche la liste des ingredients dans le menu filtre des ingrédients
 //--------------------------------------------------------------------------------------
 function displayIngredients(recipes) {
-  // console.log("displayIngredients")
 
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let ingredients = [];
@@ -84,7 +86,6 @@ function displayIngredients(recipes) {
 // Fonction qui affiche la liste des appareils dans le menu filtre des appareils
 //--------------------------------------------------------------------------------------
 function displayAppliances(recipes) {
-  // console.log("displayAppliances")
 
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let appliances = [];
@@ -113,7 +114,6 @@ function displayAppliances(recipes) {
 // Fonction qui affiche la liste des ustensiles dans le menu des ustensiles
 //--------------------------------------------------------------------------------------
 function displayUstensils(recipes) {
-  // console.log("displayUstensils")
 
    openDropDownMenu(); // animation de la flêche à l'ouverture du menu
    let ustensils = [];
@@ -144,7 +144,6 @@ function displayUstensils(recipes) {
 // Fonction qui affiche les tags sous la barre de recherche
 //--------------------------------------------------------------------------------------
 function displayTags(tagsTable) {
-  console.log("displayTags")
 
    const tagList = document.getElementById("tags");
    let selectedTag = document.createElement('span');
@@ -182,19 +181,20 @@ function displayTags(tagsTable) {
 // fonction qui supprime le tag selectionné
 //--------------------------------------------------------------------------------------
 function deleteSelectedTag(selectedTag, tagsTable) {
-  // console.log("deleteSelectedTag")
 
    const recipesListSection = document.getElementById("recipes-list");
 
    selectedTag.addEventListener('click', function (e) {
       e.target.remove();
+      tagsTable.pop(e.target.value);
+
       if (tagsTable.indexOf(e.target.textContent) > 0) {
          tagsTable.pop(e.target.textContent);
-         displayRecipeByTags(recipes, tagsTable);
+         displayRecipeByTags(remainingRecipes, tagsTable);
       } else {
          recipesListSection.innerHTML = "";
          tagsTable = [];
-         displayRecipes(recipes);
+         displayRecipes(allRecipes);
       }
    })
 
@@ -242,23 +242,21 @@ function handleTagItems() {
 // Fonction qui affiche les recettes en fonction des tags
 //--------------------------------------------------------------------------------------
 function displayRecipeByTags(recipes, tagsTable) {
-  // console.log("displayRecipeByTags")
+  if (tagsTable.length > 1) {
+    recipes = remainingRecipes;
+  } else if(tagsTable <= 1) {
+    recipes = allRecipes;
+  }
 
-   let allRecipes = [];
-   let newRecipesList = [];
-   const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
-   const filteredIngredients = recipes.filter(item => item.ingredients.find(el => el.ingredient.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase()))));
-   const filteredDescription = recipes.filter(item => item.description.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
-   const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
-   newRecipesList = results;
+  let lastTagPush = tagsTable[tagsTable.length-1];
 
-   if (tagsTable.length > 0) {
-      recipes = newRecipesList;
-   } else {
-      recipes = allRecipes;
-   }
+  const filteredRecipes = recipes.filter(item => item.name.toLowerCase().includes(lastTagPush));
+  const filteredIngredients = recipes.filter(item => item.ingredients.find(el => el.ingredient.toLowerCase().includes(lastTagPush)));
+  const filteredDescription = recipes.filter(item => item.description.toLowerCase().includes(lastTagPush));
+  const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
+  remainingRecipes = results;
 
-   displayRecipes(newRecipesList);
+   displayRecipes(remainingRecipes);
 }
 
 
@@ -266,30 +264,29 @@ function displayRecipeByTags(recipes, tagsTable) {
 // Recherche des tags à l'aide des barres de recherches des menu déroulants
 //--------------------------------------------------------------------------------------
 function searchTagsByFiltersListSearchBar() {
-  // console.log("sortRecipesByFilters")
 
-   const filterMenus = document.querySelectorAll('.dropdown-toggle');
-   let newIngredientList = [];
-   let newApplianceList = [];
-   let newUstensilList = [];
+  const filterMenus = document.querySelectorAll('.dropdown-toggle');
+  let newIngredientList = [];
+  let newApplianceList = [];
+  let newUstensilList = [];
 
-   filterMenus.forEach(dropdown => {
-      dropdown.onkeyup = function () {
-         recipes.forEach(dropdownData => {
-            dropdownData.ingredients.forEach(ingredient => {
-               newIngredientList.push(ingredient.ingredient.toLowerCase());
-            })
-            dropdownData.ustensils.forEach(ustensil => {
-               newUstensilList.push(ustensil.toLowerCase());
-            });
-            newApplianceList.push(dropdownData.appliance.toLowerCase());
-         });
+  filterMenus.forEach(dropdown => {
+    dropdown.onkeyup = function () {
+        recipes.forEach(dropdownData => {
+          dropdownData.ingredients.forEach(ingredient => {
+              newIngredientList.push(ingredient.ingredient.toLowerCase());
+          })
+          dropdownData.ustensils.forEach(ustensil => {
+              newUstensilList.push(ustensil.toLowerCase());
+          });
+          newApplianceList.push(dropdownData.appliance.toLowerCase());
+        });
 
-         findIngredientByFilterSearchBar(newIngredientList);
-         findApplianceByFilterSearchBar(newApplianceList);
-         findUstensilByFilterSearchBar(newUstensilList);
-      }
-   });
+        findIngredientByFilterSearchBar(newIngredientList);
+        findApplianceByFilterSearchBar(newApplianceList);
+        findUstensilByFilterSearchBar(newUstensilList);
+    }
+  });
 }
 
 
@@ -297,7 +294,6 @@ function searchTagsByFiltersListSearchBar() {
 // Recherche au clavier dans l'input des menus de filtres : Ingredients
 //--------------------------------------------------------------------------------------
 function findIngredientByFilterSearchBar(newIngredientList) {
-  // console.log("findIngredientByFilterSearchBar")
 
    const ingredientsSearchBar = document.querySelector("#ingredients");
    const ingredientsList = document.querySelector('.ingredients-list');
@@ -334,7 +330,6 @@ function findIngredientByFilterSearchBar(newIngredientList) {
 // Recherche au clavier dans l'input des menus de filtres : Appareils
 //--------------------------------------------------------------------------------------
 function findApplianceByFilterSearchBar(newApplianceList) {
-  // console.log("findApplianceByFilterSearchBar")
 
    const aplliancesSearchBar = document.querySelector("#appliances");
    const appliancesList = document.querySelector('.appliances-list');
@@ -371,7 +366,6 @@ function findApplianceByFilterSearchBar(newApplianceList) {
 // Recherche au clavier dans l'input des menus de filtres : Ustensiles
 //--------------------------------------------------------------------------------------
 function findUstensilByFilterSearchBar(newUstensilList) {
-  // console.log("findUstensilByFilterSearchBar")
 
    const ustensilsSearchBar = document.querySelector("#ustensils");
    const ustensilsList = document.querySelector('.ustensils-list');
@@ -408,7 +402,6 @@ function findUstensilByFilterSearchBar(newUstensilList) {
 // Recherche principale dans la barre de recherche
 //--------------------------------------------------------------------------------------
 function findRecipesBySearchBar(recipes) {
-  // console.log("findRecipesBySearchBar")
 
    const recipesListSection = document.getElementById("recipes-list");
    const searchBar = document.querySelector("#search-bar");
