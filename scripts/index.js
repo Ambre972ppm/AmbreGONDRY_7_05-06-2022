@@ -3,6 +3,8 @@
 //--------------------------------------------------------------------------------------
 import recipes from './data/recipes.js';
 
+let allRecipes = recipes;
+let remainingRecipes = [];
 
 //--------------------------------------------------------------------------------------
 // fonction qui affiche les recettes
@@ -183,8 +185,6 @@ function displayTags(tagsTable) {
   deleteTag.classList.add('delete-tag-icon');
   deleteTag.setAttribute('src', '/assets/icons/close_white.png');
 
-  console.log(tagsTable)
-
   recipes.forEach(recipe =>  {
     recipesTable.push(recipe);
     ingredientsTable.push(recipe.ingredients);
@@ -220,7 +220,7 @@ function deleteSelectedTag(selectedTag, tagsTable) {
     if (tagsTable.length > 0) {
       console.log(tagsTable);
       console.log(tagsTable.length);
-      displayRecipeByTags(recipes, tagsTable);
+      displayRecipeByTags(remainingRecipes, tagsTable);
     } else if (tagsTable.length == 0)  {
       recipesListSection.innerHTML = "";
       tagsTable = [];
@@ -233,24 +233,22 @@ function deleteSelectedTag(selectedTag, tagsTable) {
 // Fonction d'affichage des recettes à l'aide des tags
 //--------------------------------------------------------------------------------------
 function displayRecipeByTags(recipes, tagsTable) {
-  console.log('displayRecipeByTags')
-  let allRecipes = [];
-  let newRecipesList = [];
-
-  const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
-  const filteredIngredients = recipes.filter(recipe => recipe.ingredients.find(ingredient => ingredient.ingredient.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase()))));
-  const filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(tagsTable.find(tag => tag.toLowerCase())));
-  const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
-  newRecipesList = results;
-  allRecipes = newRecipesList;
 
   if (tagsTable.length > 0) {
-    recipes = newRecipesList;
+    recipes = remainingRecipes;
  } else {
     recipes = allRecipes;
  }
 
-  displayRecipes(newRecipesList);
+ const lastTagPush = tagsTable[tagsTable.length-1];
+
+  const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(lastTagPush));
+  const filteredIngredients = recipes.filter(recipe => recipe.ingredients.find(ingredient => ingredient.ingredient.toLowerCase().includes(lastTagPush)));
+  const filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(lastTagPush));
+  const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
+  remainingRecipes = results;
+
+  displayRecipes(remainingRecipes);
 }
 
 //--------------------------------------------------------------------------------------
