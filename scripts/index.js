@@ -154,18 +154,6 @@ function displayTags(tagsTable) {
    deleteTag.classList.add('delete-tag-icon');
    deleteTag.setAttribute('src', './assets/icons/close_white.png');
 
-   let recipesTable = [];
-   let ingredientsTable = [];
-   let appliancesTable = [];
-   let ustensilsTable = [];
-
-   recipes.forEach((recipe) => {
-      recipesTable.push(recipe);
-      ingredientsTable.push(recipe.ingredients);
-      appliancesTable.push(recipe.appliance);
-      ustensilsTable.push(recipe.ustensils);
-   })
-
    tagList.appendChild(selectedTag);
    tagsTable.find((tagItem) => {
       selectedTag.textContent = tagItem;
@@ -187,10 +175,10 @@ function deleteSelectedTag(selectedTag, tagsTable) {
    selectedTag.addEventListener('click', function (e) {
       e.target.remove();
       tagsTable.pop(e.target.value);
-
-      if (tagsTable.indexOf(e.target.textContent) > 0) {
-         tagsTable.pop(e.target.textContent);
-         displayRecipeByTags(remainingRecipes, tagsTable);
+      if (tagsTable.length > 0) {
+         console.log(tagsTable);
+         console.log(recipes);
+         displayRecipeByTags(recipes, tagsTable);
       } else {
          recipesListSection.innerHTML = "";
          tagsTable = [];
@@ -199,7 +187,6 @@ function deleteSelectedTag(selectedTag, tagsTable) {
    })
 
 }
-
 
 //--------------------------------------------------------------------------------------
 // Fonction manipulation des tags
@@ -237,16 +224,16 @@ function handleTagItems() {
     })
 }
 
-
 //--------------------------------------------------------------------------------------
 // Fonction qui affiche les recettes en fonction des tags
 //--------------------------------------------------------------------------------------
 function displayRecipeByTags(recipes, tagsTable) {
-  if (tagsTable.length > 1) {
-    recipes = remainingRecipes;
-  } else if(tagsTable <= 1) {
-    recipes = allRecipes;
-  }
+
+   if (tagsTable.length > 1) {
+      recipes = remainingRecipes;
+   } else if(tagsTable < 1) {
+      recipes = allRecipes;
+   }
 
   let lastTagPush = tagsTable[tagsTable.length-1];
 
@@ -258,7 +245,6 @@ function displayRecipeByTags(recipes, tagsTable) {
 
    displayRecipes(remainingRecipes);
 }
-
 
 //--------------------------------------------------------------------------------------
 // Recherche des tags à l'aide des barres de recherches des menu déroulants
@@ -411,22 +397,23 @@ function findRecipesBySearchBar(recipes) {
 
       if (searchValue.length < 3) {
          recipesListSection.innerHTML = "";
-         displayRecipes(recipes);
+         displayRecipes(allRecipes);
       }
       const filteredByName = recipes.filter(recipe => recipe.name.toLowerCase().includes(searchValue.toLowerCase()));
       const filteredByIngredients = recipes.filter(recipe => recipe.ingredients.find(item => item.ingredient.toLowerCase().includes(searchValue.toLowerCase())));
       const filteredByDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(searchValue.toLowerCase()));
       const results = [...new Set([...filteredByName, ...filteredByIngredients, ...filteredByDescription])];
+      remainingRecipes = results;
 
       if (searchValue.length > 2) {
          recipesListSection.innerHTML = "";
-         displayRecipes(results);
+         displayRecipes(remainingRecipes);
       }
    })
 }
 
 function init() {
-  displayRecipes(recipes);
+  displayRecipes(allRecipes);
   handleTagItems(); // manipulation des tags
   findRecipesBySearchBar(recipes);
   searchTagsByFiltersListSearchBar();
