@@ -173,11 +173,6 @@ function handleTagItems() {
 function displayTags(tagsTable) {
   const tagList = document.getElementById("tags");
 
-  let recipesTable = [];
-  let ingredientsTable = [];
-  let appliancesTable = [];
-  let ustensilsTable = [];
-
   let selectedTag = document.createElement('span');
   let deleteTag = document.createElement('img');
   selectedTag.classList.add('tag-selected', 'btn', 'm-3');
@@ -185,25 +180,14 @@ function displayTags(tagsTable) {
   deleteTag.classList.add('delete-tag-icon');
   deleteTag.setAttribute('src', '/assets/icons/close_white.png');
 
-  recipes.forEach(recipe =>  {
-    recipesTable.push(recipe);
-    ingredientsTable.push(recipe.ingredients);
-    appliancesTable.push(recipe.appliance);
-    ustensilsTable.push(recipe.ustensils);
-  });
-
-  displayIngredients(recipesTable);
-  displayAppliances(recipesTable);
-  displayUstensils(recipesTable);
-
-  tagList.appendChild(selectedTag);
-  tagsTable.find((tagItem) => {
-    selectedTag.textContent = tagItem;
-  });
-  selectedTag.appendChild(deleteTag);
+   tagList.appendChild(selectedTag);
+   tagsTable.find((tagItem) => {
+      selectedTag.textContent = tagItem;
+   });
+   selectedTag.appendChild(deleteTag);
 
   deleteSelectedTag(selectedTag, tagsTable);
-  displayRecipeByTags(recipesTable, tagsTable);
+  displayRecipeByTags(recipes, tagsTable);
 }
 
 //--------------------------------------------------------------------------------------
@@ -213,14 +197,11 @@ function deleteSelectedTag(selectedTag, tagsTable) {
   const recipesListSection = document.getElementById("recipes-list");
 
   selectedTag.addEventListener('click', function (e) {
-    console.log('delete');
     e.target.remove();
     tagsTable.pop(e.target.value);
 
     if (tagsTable.length > 0) {
-      console.log(tagsTable);
-      console.log(tagsTable.length);
-      displayRecipeByTags(remainingRecipes, tagsTable);
+      displayRecipeByTags(recipes, tagsTable);
     } else if (tagsTable.length == 0)  {
       recipesListSection.innerHTML = "";
       tagsTable = [];
@@ -233,17 +214,10 @@ function deleteSelectedTag(selectedTag, tagsTable) {
 // Fonction d'affichage des recettes à l'aide des tags
 //--------------------------------------------------------------------------------------
 function displayRecipeByTags(recipes, tagsTable) {
-  if (tagsTable.length > 1) {
-    recipes = remainingRecipes;
- } else {
-    recipes = allRecipes;
- }
 
- const lastTagPush = tagsTable[tagsTable.length-1];
-
-  const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(lastTagPush));
-  const filteredIngredients = recipes.filter(recipe => recipe.ingredients.find(el => el.ingredient.toLowerCase().includes(lastTagPush)));
-  const filteredDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(lastTagPush));
+const filteredRecipes = recipes.filter(recipe => tagsTable.every(tag => recipe.name.toLowerCase().includes(tag)) );
+const filteredIngredients = recipes.filter(recipe => tagsTable.every(tag => recipe.ingredients.find(el => el.ingredient.toLowerCase().includes(tag))));
+const filteredDescription = recipes.filter(recipe => tagsTable.every(tag => recipe.description.toLowerCase().includes(tag)));
   const results = [...new Set([...filteredRecipes, ...filteredIngredients, ...filteredDescription])];
   remainingRecipes = results;
 
@@ -377,7 +351,6 @@ function findRecipesBySearchBar(recipes) {
   const searchBar = document.querySelector("#search-bar");
   searchBar.oninput= function(e) {
     const searchValue = e.target.value.toLowerCase();
-    console.log (searchValue)
 
     if (searchValue.length < 3) {
        recipesListSection.innerHTML = "";
